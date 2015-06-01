@@ -1,0 +1,54 @@
+<html>
+
+<head>
+
+<title>SNAC</title>
+
+<style type="text/css">
+A:link {text-decoration: none; color: blue;}
+A:visited {text-decoration: none; color: blue;}
+A:active {text-decoration: none; color: blue}
+A:hover {text-decoration: underline; color: blue;}
+</style>
+
+</head>
+
+<body>
+
+<h1>SNAC</h1>
+
+<b>THIS CONTENT NOT FOR REDISTRIBUTION OR CITATION</b>
+
+<p><a href="https://github.com/nassar/snac">Source code</a></p>
+
+<p><a href="http://irss-prog1.irss.unc.edu/db/snac/public/index.html">Database schema</a></p>
+
+<p>Blogs:<a
+href="http://irss-prog1.irss.unc.edu:8080/?in(snac.blog)sort(blog_id)">
+<pre>http://irss-prog1.irss.unc.edu:8080/? in(snac.blog) sort(blog_id)</pre></a></p>
+
+<p>Blog rankings (most recent):<a
+href="http://irss-prog1.irss.unc.edu:8080/?in(snac.blog_rank_latest)sort(rank)">
+<pre>http://irss-prog1.irss.unc.edu:8080/? in(snac.blog_rank_latest) sort(rank)</pre></a></p>
+
+<p>Blog posts (sample):<a
+href="http://irss-prog1.irss.unc.edu:8080/?in(snac.blog_post)sort(blog_post_id)list(100)as(anvl)">
+<pre>http://irss-prog1.irss.unc.edu:8080/? in(snac.blog_post) sort(blog_post_id) list(100) as(anvl)</pre></a></p>
+
+<p>Blog citations:<a
+href="http://irss-prog1.irss.unc.edu:8080/?in(snac.blog_post_blog_link_view)sort(blog_id|blog_post_id|cited_blog_id)as(anvl)">
+<pre>http://irss-prog1.irss.unc.edu:8080/? in(snac.blog_post_blog_link_view) sort(blog_id|blog_post_id|cited_blog_id) as(anvl)</pre></a></p>
+
+<p>Blog rolls:<a
+href="http://irss-prog1.irss.unc.edu:8080/?in(snac.blog_roll)sort(blog_roll_id)">
+<pre>http://irss-prog1.irss.unc.edu:8080/? in(snac.blog_roll) sort(blog_roll_id)</pre></a>
+</p>
+
+<p>Blog roll citations to known blogs:<a
+href="http://irss-prog1.irss.unc.edu:8080/?in(snac.blog_roll_blog_link)sort(blog_roll_id|blog_id)">
+<pre>http://irss-prog1.irss.unc.edu:8080/? in(snac.blog_roll_blog_link) sort(blog_roll_id|blog_id)</pre></a>
+</p>
+
+</body>
+
+</html>

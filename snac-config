@@ -1,0 +1,6 @@
+# Copy this file to $HOME/.snac
+
+[default]
+dbname = snac
+user = nassar
+password =

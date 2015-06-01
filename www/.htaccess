@@ -1,0 +1,4 @@
+AuthName "SNAC"
+AuthType Basic
+AuthUserFile /home/nassar/.snac-htpasswd
+require valid-user
