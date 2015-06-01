@@ -290,7 +290,7 @@ def store_blog_roll_blog_link(conn, blog_roll_id, link):
                    'values (%s, %s);')
             db.execute( conn, sql, (blog_roll_id, blog_id) )
 
-def store_blog_roll(conn, blog_id, blog_roll):
+def store_blog_roll(run_id, conn, blog_id, blog_roll):
     """
     Store blog roll in database.
     """
@@ -364,7 +364,7 @@ def retrieve_site(run_id, blog_id, blog_link, blog_rank):
 #       print('03')
         blog_roll = retrieve_blog_roll(soup)
 #       print('04')
-        store_blog_roll(conn, blog_id, blog_roll)
+        store_blog_roll(run_id, conn, blog_id, blog_roll)
         # Get RSS feeds
 #       print('05')
         rss_feeds = retrieve_rss_feeds(soup)
