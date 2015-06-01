@@ -2,7 +2,6 @@ import sys
 import urllib.request
 from html.parser import HTMLParser
 import logging
-import subprocess
 from bs4 import BeautifulSoup
 from time import sleep
 import feedparser
@@ -10,7 +9,7 @@ import snac
 import re
 import time
 import datetime
-from multiprocessing import Pool
+import retrieve_blog_posts_subproc
 
 #MAXIMUM_BLOG_COUNT = 100    # Set to 0 for no limit.
 MAXIMUM_BLOG_COUNT = 0
@@ -130,14 +129,10 @@ def store_blog_post_blog_link(dbinfo, conn, blog_post_id, link):
         cur.close()
 
 def retrieve_site(blog):
+    print(blog)
     (blog_id, blog_link, blog_rank, run_id) = blog
-    proc = [ 'python3',
-             'retrieve_blog_posts_subproc.py',
-             str(run_id),
-             str(blog_id),
-             blog_link,
-             str(blog_rank) ]
-    subprocess.call(proc)
+    retrieve_blog_posts_subproc.retrieve_site( run_id, blog_id, blog_link,
+                                               blog_rank )
 
 def retrieve_blog_site_data(run_id):
     """
@@ -147,10 +142,8 @@ def retrieve_blog_site_data(run_id):
 #   print(blogs)
     blogs_run = [(b[0], b[1], b[2], run_id) for b in blogs]
 #   print(blogs_run)
-    pool = Pool(45)
-    results = pool.map(retrieve_site, blogs_run)
-    pool.close()
-    pool.join()
+    for b in blogs_run:
+        retrieve_site(b)
 #   print('RUN COMPLETE')
     end_run(run_id)
     log('INFO', 'Run complete')
