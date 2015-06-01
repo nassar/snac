@@ -1,5 +1,3 @@
-begin;
-
 create table blog (
     blog_id bigserial not null,
     primary key (blog_id),
@@ -125,6 +123,4 @@ create table blog_roll_blog_link (
 );
 
 -- grant select on all tables in schema public to sarcomere;
-
-commit;
 
