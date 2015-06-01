@@ -1,4 +1,7 @@
 *~
 __pycache__
 *.swp
+database/blog-data.sql
+database/blog_rank-data.sql
+database/blog_rank_run-data.sql
 
