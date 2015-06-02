@@ -10,12 +10,13 @@ import time
 import datetime
 import requests
 import psycopg2
+import traceback
 
 import snac
 import db
 
 CRAWL_DELAY = 10
-RETRY_ATTEMPTS = 10
+RETRY_ATTEMPTS = 3
 
 def log(level, message):
     """
@@ -347,51 +348,50 @@ def store_blog_posts(run_id, conn, blog_id, rss_entries):
     conn.commit()
 
 def retrieve_site(run_id, blog_id, blog_link, blog_rank):
-#   print('CONNECTING ' + str((blog_id, blog_link, blog_rank)) )
+    print('CONNECTING ' + str((blog_id, blog_link, blog_rank)) )
     conn = snac.connect_snac_db()
-#   print('CONNECTED ' + str((blog_id, blog_link, blog_rank)) )
+    print('CONNECTED ' + str((blog_id, blog_link, blog_rank)) )
     try:
-#       print(timestamp() + 'Blog: ' + str((blog_id, blog_link, blog_rank)) )
-#       print('00')
+        print(timestamp() + 'Blog: ' + str((blog_id, blog_link, blog_rank)) )
+        print('00')
         html = retrieve_page(blog_link)
-#       print('01')
+        print('01')
         if html is None:
             log('DEBUG', 'Page not retrieved')
             return
-#       print('02')
+        print('02')
         soup = BeautifulSoup(html, "lxml")
         # Get blog roll
-#       print('03')
+        print('03')
         blog_roll = retrieve_blog_roll(soup)
-#       print('04')
+        print('04')
         store_blog_roll(run_id, conn, blog_id, blog_roll)
         # Get RSS feeds
-#       print('05')
+        print('05')
         rss_feeds = retrieve_rss_feeds(soup)
-#       print('06')
+        print('06')
         if len(rss_feeds) == 0:
             log('DEBUG', 'No RSS feeds found')
             return
-#       print('07')
+        print('07')
         main_rss_url = rss_feeds[0][1]
-#       print('08')
+        print('08')
         composed_rss_url = compose_rss_url(blog_link, main_rss_url)
-#       print('09')
+        print('09')
         log('DEBUG', 'Retrieving posts: ' + composed_rss_url)
-#       print('10')
+        print('10')
         rss = retrieve_posts(composed_rss_url)
-#       print('11')
+        print('11')
         rss_entries = rss['entries']
-#       print(blog_link + ' - ' + str(len(rss_entries)) + ' rss entries')
-#       print('12')
+        print(blog_link + ' - ' + str(len(rss_entries)) + ' rss entries')
+        print('12')
         store_blog_posts(run_id, conn, blog_id, rss_entries)
-#       print('13')
+    except:
+        print(traceback.format_exc())
     finally:
-#       print('14')
         conn.close()
 
 if __name__ == '__main__':
-#   print('SUBPROC ' + str(sys.argv))
     run_id = sys.argv[1]
     blog_id = sys.argv[2]
     blog_link = sys.argv[3]

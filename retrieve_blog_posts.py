@@ -129,7 +129,7 @@ def store_blog_post_blog_link(dbinfo, conn, blog_post_id, link):
         cur.close()
 
 def retrieve_site(blog):
-    print(blog)
+#    print(blog)
     (blog_id, blog_link, blog_rank, run_id) = blog
     retrieve_blog_posts_subproc.retrieve_site( run_id, blog_id, blog_link,
                                                blog_rank )
@@ -139,11 +139,13 @@ def retrieve_blog_site_data(run_id):
     Retrieve RSS feeds and blog postings from ranked blogs.
     """
     blogs = get_ranked_blogs(MAXIMUM_BLOG_COUNT)
-#   print(blogs)
     blogs_run = [(b[0], b[1], b[2], run_id) for b in blogs]
-#   print(blogs_run)
     for b in blogs_run:
+        print('**********************************')
+        print('retrieve_site {:s}'.format(str(b)))
+        sys.stdout.flush()
         retrieve_site(b)
+        sys.stdout.flush()
 #   print('RUN COMPLETE')
     end_run(run_id)
     log('INFO', 'Run complete')
